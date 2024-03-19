@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: Device Interface API
+  description: API module for interfacing with medical devices
+  version: "1.0"
+servers:
+  - url: https://health-monitoring-system.com/api
+
+paths:
+  /devices/assign:
+    post:
+      summary: Assign a device to a patient
+      operationId: assignDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceAssignment'
+      responses:
+        '201':
+          description: Device assigned to patient successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Patient or device not found
+
+  /devices/{deviceId}/status:
+    get:
+      summary: Get the status of a medical device
+      operationId: getDeviceStatus
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unique identifier of the device
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current status of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceStatus'
+        '404':
+          description: Device not found
+
+components:
+  schemas:
+    DeviceAssignment:
+      type: object
+      properties:
+        patientId:
+          type: string
+          description: Unique identifier of the patient
+        deviceId:
+          type: string
+          description: Unique identifier of the device
+        assignmentDetails:
+          type: object
+          properties:
+            assignedBy:
+              type: string
+              description: Identifier of the medical professional who assigned the device
+            assignmentDate:
+              type: string
+              format: date-time
+              description: Date and time when the device was assigned
+
+    DeviceStatus:
+      type: object
+      properties:
+        deviceId:
+          type: string
+          description: Unique identifier of the device
+        status:
+          type: string
+          description: Current operational status of the device (e.g., active, inactive, malfunctioning)
