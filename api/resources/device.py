@@ -3,16 +3,6 @@ from extensions import db
 from models import Measurement, Device, DeviceAssignment, Patient
 import datetime
 
-# Define the output structure
-measurement_fields = {
-    'id': fields.Integer,
-    'patient_id': fields.Integer,
-    'type': fields.String,
-    'value': fields.Float,
-    'unit': fields.String,
-    'timestamp': fields.DateTime,
-}
-
 device_fields = {
     'id': fields.Integer,
     'name': fields.String,
@@ -27,19 +17,6 @@ assignment_fields = {
     'assigned_on': fields.DateTime,
 }
 
-patient_fields = {
-    'id': fields.Integer,
-    'first_name': fields.String,
-    'last_name': fields.String,
-}
-
-
-# Define input parsing
-measurement_parser = reqparse.RequestParser()
-measurement_parser.add_argument('type', required=True, help="Type of measurement cannot be blank")
-measurement_parser.add_argument('value', type=float, required=True, help="Value of measurement cannot be blank")
-measurement_parser.add_argument('unit', required=True, help="Unit cannot be blank")
-
 device_parser = reqparse.RequestParser()
 device_parser.add_argument('patientId', type=int, required=True, help="Patient ID is required")
 device_parser.add_argument('deviceId', type=int, required=False, help="Device ID is required")
@@ -49,38 +26,6 @@ device_parser.add_argument('isEnabled', type=bool, required=False, help="Enabled
 device_creation_parser = reqparse.RequestParser()
 device_creation_parser.add_argument('name', type=str, required=True, help="Name of the device is required")
 device_creation_parser.add_argument('status', type=str, required=True, help="Status of the device is required")
-
-add_patient_parser = reqparse.RequestParser()
-add_patient_parser.add_argument('first_name', type=str, required=True, help="First name is required")
-add_patient_parser.add_argument('last_name', type=str, required=True, help="Last name is required")
-
-class MeasurementListAPI(Resource):
-    @marshal_with(measurement_fields)
-    def get(self, patient_id):
-        return Measurement.query.filter_by(patient_id=patient_id).all()
-
-    @marshal_with(measurement_fields)
-    def post(self, patient_id):
-        args = measurement_parser.parse_args()
-        new_measurement = Measurement(
-            patient_id=patient_id,
-            type=args['type'],
-            value=args['value'],
-            unit=args['unit'],
-            timestamp=datetime.datetime.now()  # Correctly uses datetime
-        )
-        db.session.add(new_measurement)
-        db.session.commit()
-        return new_measurement, 201
-
-    def delete(self, measurement_id):
-        measurement = Measurement.query.get(measurement_id)
-        if measurement:
-            db.session.delete(measurement)
-            db.session.commit()
-            return '', 204  # No content response
-        else:
-            return {'message': 'Measurement not found'}, 404
 
 class AddDevice(Resource):
     @marshal_with(device_fields)
@@ -157,17 +102,3 @@ class EnableDisableDevice(Resource):
         db.session.commit()
         
         return device
-    
-class AddPatient(Resource):
-    @marshal_with(patient_fields)
-    def post(self):
-        args = add_patient_parser.parse_args()
-        new_patient = Patient(first_name=args['first_name'], last_name=args['last_name'])
-        db.session.add(new_patient)
-        db.session.commit()
-        return new_patient, 201
-    
-    @marshal_with(patient_fields)
-    def get(self):
-        patients = Patient.query.all()
-        return patients
