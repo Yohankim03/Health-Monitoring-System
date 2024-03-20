@@ -1,6 +1,6 @@
 from flask_restful import Resource, fields, marshal_with, reqparse, abort
 from extensions import db
-from models import Measurement, Device, DeviceAssignment, Patient
+from api.models import Measurement, Device, DeviceAssignment
 import datetime
 
 device_fields = {
@@ -16,6 +16,20 @@ assignment_fields = {
     'assignment_details': fields.String,
     'assigned_on': fields.DateTime,
 }
+
+measurement_fields = {
+    'id': fields.Integer,
+    'patient_id': fields.Integer,
+    'type': fields.String,
+    'value': fields.Float,
+    'unit': fields.String,
+    'timestamp': fields.DateTime,
+}
+
+measurement_parser = reqparse.RequestParser()
+measurement_parser.add_argument('type', required=True, help="Type of measurement cannot be blank")
+measurement_parser.add_argument('value', type=float, required=True, help="Value of measurement cannot be blank")
+measurement_parser.add_argument('unit', required=True, help="Unit cannot be blank")
 
 device_parser = reqparse.RequestParser()
 device_parser.add_argument('patientId', type=int, required=True, help="Patient ID is required")
@@ -102,3 +116,31 @@ class EnableDisableDevice(Resource):
         db.session.commit()
         
         return device
+    
+class MeasurementListAPI(Resource):
+    @marshal_with(measurement_fields)
+    def get(self, patient_id):
+        return Measurement.query.filter_by(patient_id=patient_id).all()
+
+    @marshal_with(measurement_fields)
+    def post(self, patient_id):
+        args = measurement_parser.parse_args()
+        new_measurement = Measurement(
+            patient_id=patient_id,
+            type=args['type'],
+            value=args['value'],
+            unit=args['unit'],
+            timestamp=datetime.datetime.now()  # Correctly uses datetime
+        )
+        db.session.add(new_measurement)
+        db.session.commit()
+        return new_measurement, 201
+
+    def delete(self, measurement_id):
+        measurement = Measurement.query.get(measurement_id)
+        if measurement:
+            db.session.delete(measurement)
+            db.session.commit()
+            return '', 204  # No content response
+        else:
+            return {'message': 'Measurement not found'}, 404

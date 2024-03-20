@@ -9,8 +9,6 @@ class Measurement(db.Model):
     value = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False)
-
-    # Relationship (if you need to access patient from a Measurement instance)
     patient = db.relationship('Patient', back_populates='measurements')
 
     def __repr__(self):
@@ -21,8 +19,6 @@ class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(50), nullable=False, default="inactive")
-
-    # Relationship to DeviceAssignment
     assignments = db.relationship('DeviceAssignment', backref='device', lazy=True)
 
 class DeviceAssignment(db.Model):
@@ -32,8 +28,6 @@ class DeviceAssignment(db.Model):
     device_id = db.Column(db.Integer, db.ForeignKey('device.id'), nullable=False)
     assignment_details = db.Column(db.String(200))
     assigned_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    # Relationship (if you need to access patient from a DeviceAssignment instance)
     patient = db.relationship('Patient', back_populates='device_assignments')
 
 class Patient(db.Model):
@@ -45,11 +39,10 @@ class Patient(db.Model):
     dob = db.Column(db.DateTime, nullable=False)
     gender = db.Column(db.String(50))
     contact_number = db.Column(db.String(50))
+    measurements = db.relationship('Measurement', back_populates='patient', lazy='dynamic')
+    device_assignments = db.relationship('DeviceAssignment', back_populates='patient')
+    reports = db.relationship('Report', back_populates='patient', lazy='dynamic')
 
-    # Reverse relationships (if needed, to easily access related objects)
-    appointments = db.relationship('Appointment', backref='patient', lazy=True)
-    medical_records = db.relationship('MedicalRecord', backref='patient', lazy=True)
-    device_assignments = db.relationship('DeviceAssignment', backref='patient', lazy=True)
 
     def __repr__(self):
         return f'<Patient {self.first_name} {self.last_name}>'
@@ -62,6 +55,9 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(100), nullable=False)
     
+    def __repr__(self):
+        return f'<User {self.username} {self.role}>'
+    
 class Report(db.Model):
     __tablename__ = 'report'
     id = db.Column(db.Integer, primary_key=True)
@@ -69,8 +65,6 @@ class Report(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-
-    # Relationships
     medical_professional = db.relationship('MedicalProfessional', back_populates='reports')
     patient = db.relationship('Patient', back_populates='reports')
 
@@ -87,9 +81,8 @@ class MedicalProfessional(db.Model):
     department = db.Column(db.String(100))
     contact_number = db.Column(db.String(50))
     email = db.Column(db.String(100), unique=True)
-
-    # Relationships
     user = db.relationship('User', backref=db.backref('medical_professional', uselist=False))
+    reports = db.relationship('Report', back_populates='medical_professional')
 
     def __repr__(self):
         return f'<MedicalProfessional {self.title} {self.first_name} {self.last_name}>'
@@ -101,9 +94,7 @@ class Notification(db.Model):
     message = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     status = db.Column(db.String(50), nullable=False, default='unread')
-
-    # Relationship to user (assuming you have a User model already defined)
     user = db.relationship('User', backref='notifications')
-
+    
     def __repr__(self):
         return f'<Notification {self.id}>'

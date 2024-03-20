@@ -1,6 +1,7 @@
-from flask_restful import Resource, fields, marshal_with, reqparse, abort
+from flask_restful import Resource, fields, marshal_with, reqparse
 from extensions import db
-from models import Measurement, Device, DeviceAssignment, Patient
+#from models import Measurement, Device, DeviceAssignment, Patient
+from api.models import Patient
 import datetime
 
 patient_fields = {
