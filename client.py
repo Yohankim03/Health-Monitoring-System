@@ -143,4 +143,20 @@ while True:
                                 print(get(url+"notification/"+userid).json())
                             except Exception as e:
                                 print(f"ERROR: Failed to get {userid} notificaiton:", e)
+                                
+                                
+        case '6':
+            while True:
+                inp_man = input("Enter number: \n\t1. GetUser(GET) \n\t2. DeleteUser(DELETE) \n\t3. Quit\n")
+                if inp_man == '3':
+                    break
+                
+                match inp_man:
+                    case '1':
+                        print(get(url+"users").json())
+                        
+                    case '2':
+                        userid = input("Enter the id you want to delete: ")
+                        delete(url+ "users/" +userid+ "/delete")
+                        
             

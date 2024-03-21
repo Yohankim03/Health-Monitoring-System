@@ -5,6 +5,7 @@ from .notifcation.noti_resources import NotificationResource
 from .data_reading.data_reading_resources import MeasurementResource, MeasurementListResource
 from .device_interface.device_interface_resources import AddDevice, AssignDevice, UpdateDeviceStatus, ListDevices
 from .report.report_resources import CreateReport, ListReports, GetReport
+from .user_management.user_man_resources import DeleteUser, GetUsers
 
 # Define the create_api function
 def create_api(app):
@@ -32,5 +33,8 @@ def create_api(app):
     api.add_resource(ListReports, '/reports')
     api.add_resource(GetReport, '/reports/<int:report_id>')
 
+    # User Management
+    api.add_resource(GetUsers, '/users')
+    api.add_resource(DeleteUser, '/users/<int:id>/delete')
     
     return api
