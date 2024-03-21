@@ -6,6 +6,7 @@ from api import create_api
 from api.models import Role, User, Device
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import JWTManager
+from test import *
 import os
 
 # Create the Flask application
@@ -86,4 +87,5 @@ if __name__ == '__main__':
         create_roles()
         add_devices()
         insert_test_data()
+        unittest.main()
     app.run(debug=True)

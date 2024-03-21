@@ -2,13 +2,18 @@ from flask_restful import Resource, reqparse, fields, marshal_with
 from api.models import Report, Measurement, DeviceAssignment, Device
 from extensions import db
 
+class DateField(fields.Raw):
+    def format(self, value):
+        return value.strftime('%m-%d-%Y')  # Formats the date as MM-DD-YYYY
+
 report_fields = {
     'id': fields.Integer,
     'generated_by': fields.Integer,
     'patient_id': fields.Integer,
     'content': fields.String,
-    'timestamp': fields.DateTime(dt_format='rfc822'),
+    'timestamp': DateField(),
 }
+
 
 class CreateReport(Resource):
     @marshal_with(report_fields)

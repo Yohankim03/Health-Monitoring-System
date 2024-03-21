@@ -89,7 +89,7 @@ while True:
                         
         case '4':
             while True:
-                inp_report = input("Enter number: \n\t1. CreateReport(POST) \n\t2. ListReports(POST) \n\t3. GetReport(PUT) \n\t4. Quit\n")
+                inp_report = input("Enter number: \n\t1. CreateReport(POST) \n\t2. ListReports(GET) \n\t3. GetReport(GET) \n\t4. Quit\n")
                 if inp_report == '4':
                     break
                 

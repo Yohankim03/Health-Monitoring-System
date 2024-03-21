@@ -1,5 +1,5 @@
 from extensions import db
-from datetime import datetime
+from datetime import datetime, date
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Measurement(db.Model):
@@ -34,7 +34,7 @@ class Report(db.Model):
     generated_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.Date, default=date.today)
 
     def __repr__(self):
         return f'<Report {self.id} for patient {self.patient_id}>'
