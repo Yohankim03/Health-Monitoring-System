@@ -119,28 +119,22 @@ class EnableDisableDevice(Resource):
     
 class MeasurementListAPI(Resource):
     @marshal_with(measurement_fields)
-    def get(self, patient_id):
-        return Measurement.query.filter_by(patient_id=patient_id).all()
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('patient_id', type=int, required=True, help="Patient ID is required")
+        parser.add_argument('type', required=True, help="Type of measurement is required")
+        parser.add_argument('value', type=float, required=True, help="Value of measurement is required")
+        parser.add_argument('unit', required=True, help="Unit of measurement is required")
+        args = parser.parse_args()
 
-    @marshal_with(measurement_fields)
-    def post(self, patient_id):
-        args = measurement_parser.parse_args()
         new_measurement = Measurement(
-            patient_id=patient_id,
+            patient_id=args['patient_id'],
             type=args['type'],
             value=args['value'],
             unit=args['unit'],
-            timestamp=datetime.datetime.now()  # Correctly uses datetime
+            timestamp=datetime.utcnow()
         )
         db.session.add(new_measurement)
         db.session.commit()
         return new_measurement, 201
 
-    def delete(self, measurement_id):
-        measurement = Measurement.query.get(measurement_id)
-        if measurement:
-            db.session.delete(measurement)
-            db.session.commit()
-            return '', 204  # No content response
-        else:
-            return {'message': 'Measurement not found'}, 404

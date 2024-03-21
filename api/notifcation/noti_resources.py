@@ -24,6 +24,11 @@ class NotificationResource(Resource):
         return new_notification, 201
     
     @marshal_with(notification_fields)
-    def get(self):
-        notifications = Notification.query.all()
+    def get(self, user_id=None):
+        if user_id is None:
+            # You might want to limit this to admins only
+            return Notification.query.all()
+        
+        
+        notifications = Notification.query.filter_by(user_id=user_id).all()
         return notifications

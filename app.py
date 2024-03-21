@@ -3,7 +3,7 @@ from flask import Flask
 from extensions import db
 from flask_migrate import Migrate
 from api import create_api
-from api.models import Role, User, Patient, MedicalProfessional
+from api.models import Role, User, Device
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import JWTManager
 import os
@@ -33,6 +33,14 @@ def create_roles():
         if not Role.query.filter_by(name=role_name).first():
             new_role = Role(name=role_name)
             db.session.add(new_role)
+    db.session.commit()
+    
+def add_devices():
+    devices = ["Heart Rate Monitor", "Blood Pressure Monitor", ""]  # Add all roles you need
+    for device in devices:
+        if not Device.query.filter_by(name=device).first():
+            new_device = Device(name=device, status="active")
+            db.session.add(new_device)
     db.session.commit()
     
 
@@ -76,5 +84,6 @@ def insert_test_data():
 if __name__ == '__main__':
     with app.app_context():
         create_roles()
+        add_devices()
         insert_test_data()
     app.run(debug=True)

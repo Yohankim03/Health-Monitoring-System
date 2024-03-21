@@ -9,7 +9,6 @@ user_profile_fields = {
     'email': fields.String
 }
 
-
 class UserRegistration(Resource):
     @marshal_with(user_profile_fields)
     def post(self):
@@ -32,31 +31,30 @@ class UserRegistration(Resource):
         db.session.commit()
 
         return new_user, 201
-    
-class UserRoleAssignment(Resource):
-    def put(self, user_id):
-        parser = reqparse.RequestParser()
-        parser.add_argument('role', action='append', help='Role cannot be blank', required=True)
-        args = parser.parse_args()
 
-        user = User.query.get_or_404(user_id)
+# Will go into User Managment
+# class UserRoleAssignment(Resource):
+#     def put(self, user_id):
+#         parser = reqparse.RequestParser()
+#         parser.add_argument('role', action='append', help='Role cannot be blank', required=True)
+#         args = parser.parse_args()
+
+#         user = User.query.get_or_404(user_id)
         
-        
+#         # Clear existing roles
+#         user.roles = []
 
-        # Clear existing roles
-        user.roles = []
+#         # Assign new roles
+#         for role_name in args['role']:
+#             role = Role.query.filter_by(name=role_name).first()
+#             if role:
+#                 user.roles.append(role)
+#             else:
+#                 db.session.rollback()
+#                 return {"message": f"Role '{role_name}' does not exist."}, 400
 
-        # Assign new roles
-        for role_name in args['role']:
-            role = Role.query.filter_by(name=role_name).first()
-            if role:
-                user.roles.append(role)
-            else:
-                db.session.rollback()
-                return {"message": f"Role '{role_name}' does not exist."}, 400
-
-        db.session.commit()
-        return {'message': 'User roles updated'}, 200
+#         db.session.commit()
+#         return {'message': 'User roles updated'}, 200
 
 class UserLogin(Resource):
     def post(self):
