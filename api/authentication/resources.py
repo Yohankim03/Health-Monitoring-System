@@ -1,6 +1,6 @@
 from flask_restful import Resource, fields, marshal_with, reqparse
 from extensions import db
-from api.models import User
+from api.models import User, Role
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 user_profile_fields = {
@@ -10,14 +10,13 @@ user_profile_fields = {
 }
 
 
-parser = reqparse.RequestParser()
-parser.add_argument('username', help='This field cannot be blank', required=True)
-parser.add_argument('email', help='This field cannot be blank', required=True)
-parser.add_argument('password', help='This field cannot be blank', required=True)
-
 class UserRegistration(Resource):
     @marshal_with(user_profile_fields)
     def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('username', help='This field cannot be blank', required=True)
+        parser.add_argument('email', help='This field cannot be blank', required=True)
+        parser.add_argument('password', help='This field cannot be blank', required=True)
         data = parser.parse_args()
         
         if User.query.filter_by(username=data['username']).first():
@@ -25,10 +24,39 @@ class UserRegistration(Resource):
         
         new_user = User(username=data['username'], email=data['email'])
         new_user.set_password(data['password'])
+        
+        default_role = Role.query.filter_by(name='Patient').first()
+        if default_role:
+            new_user.roles.append(default_role)
         db.session.add(new_user)
         db.session.commit()
 
         return new_user, 201
+    
+class UserRoleAssignment(Resource):
+    def put(self, user_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('role', action='append', help='Role cannot be blank', required=True)
+        args = parser.parse_args()
+
+        user = User.query.get_or_404(user_id)
+        
+        
+
+        # Clear existing roles
+        user.roles = []
+
+        # Assign new roles
+        for role_name in args['role']:
+            role = Role.query.filter_by(name=role_name).first()
+            if role:
+                user.roles.append(role)
+            else:
+                db.session.rollback()
+                return {"message": f"Role '{role_name}' does not exist."}, 400
+
+        db.session.commit()
+        return {'message': 'User roles updated'}, 200
 
 class UserLogin(Resource):
     def post(self):

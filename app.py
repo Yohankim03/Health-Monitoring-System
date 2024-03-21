@@ -25,7 +25,6 @@ migrate = Migrate(app, db)
 
 # Call create_api to set up the API routes
 api = create_api(app)
-
 jwt = JWTManager(app)
 
 def create_roles():

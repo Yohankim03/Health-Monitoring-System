@@ -1,12 +1,11 @@
 # Import Flask-RESTful Api and all resources
 from flask_restful import Api
 from .resources.device import GetDeviceStatus, EnableDisableDevice, AssignDeviceToPatient, AddDevice, MeasurementListAPI
-from .resources.patient import AddPatient
 from .resources.notification import NotificationResource
 from .resources.report import ReportResource
 from .user_management.admin.resources import AdminAddUser, AdminManageUserRoles
 from .user_management.medical_professional.resources import AssignDeviceToPatient, InputPatientData#, SendMessage, BrowsePatients
-from .authentication.resources import UserRegistration, UserLogin
+from .authentication.resources import UserRegistration, UserLogin, UserRoleAssignment
 
 # Define the create_api function
 def create_api(app):
@@ -31,6 +30,7 @@ def create_api(app):
     # api.add_resource(SendMessage, '/patients/send-message')
     
     api.add_resource(UserRegistration, '/registration')
+    api.add_resource(UserRoleAssignment, '/users/<int:user_id>/roles')
     api.add_resource(UserLogin, '/login')
     
     

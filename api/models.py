@@ -48,26 +48,7 @@ class Patient(db.Model):
     def __repr__(self):
         return f'<Patient {self.first_name} {self.last_name}>'
 
-# class User(db.Model):
-#     __tablename__ = 'user'
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(50), nullable=False, unique=True)
-#     email = db.Column(db.String(100), nullable=False, unique=True)
-#     password_hash = db.Column(db.String(255), nullable=False)
-#     role = db.Column(db.String(100), nullable=False)
-    
-#     patient = db.relationship('Patient', backref='user', lazy=True)
-#     medical_professional = db.relationship('MedicalProfessional', backref='user', lazy=True)
-    
-#     def __init__(self, username, email, password, role):
-#         self.username = username
-#         self.email = email
-#         self.password_hash = generate_password_hash(password)
-#         self.role = role
-    
-#     def __repr__(self):
-#         return f'<User {self.username} {self.role}>'
-    
+
 class Report(db.Model):
     __tablename__ = 'report'
     id = db.Column(db.Integer, primary_key=True)
