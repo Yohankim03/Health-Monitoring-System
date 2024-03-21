@@ -22,7 +22,7 @@ while True:
                         password = input("Enter password: ")
 
                         try:
-                            print(post(url+"registration", json={"username": username, "email": email, "password": password}))
+                            print(post(url+"registration", json={"username": username, "email": email, "password": password}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to add user {username}:", e)
                             
@@ -157,6 +157,10 @@ while True:
                         
                     case '2':
                         userid = input("Enter the id you want to delete: ")
-                        delete(url+ "users/" +userid+ "/delete")
+                        
+                        try:
+                            delete(url+ "users/" +userid+ "/delete")
+                        except Exception as e:
+                                print(f"ERROR: Failed to delete user {userid}.", e)
                         
             

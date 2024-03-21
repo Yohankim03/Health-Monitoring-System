@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
-from api.models import Notification
+from api.models import Notification, User
 from extensions import db
 
 notification_fields = {
@@ -18,6 +18,10 @@ class NotificationResource(Resource):
     @marshal_with(notification_fields)
     def post(self):
         args = notification_parser.parse_args()
+        user = User.query.get(args['user_id'])
+        if not user:
+            return {'message': 'User not found'}, 404
+        
         new_notification = Notification(user_id=args['user_id'], message=args['message'])
         db.session.add(new_notification)
         db.session.commit()

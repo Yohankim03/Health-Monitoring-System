@@ -32,30 +32,6 @@ class UserRegistration(Resource):
 
         return new_user, 201
 
-# Will go into User Managment
-# class UserRoleAssignment(Resource):
-#     def put(self, user_id):
-#         parser = reqparse.RequestParser()
-#         parser.add_argument('role', action='append', help='Role cannot be blank', required=True)
-#         args = parser.parse_args()
-
-#         user = User.query.get_or_404(user_id)
-        
-#         # Clear existing roles
-#         user.roles = []
-
-#         # Assign new roles
-#         for role_name in args['role']:
-#             role = Role.query.filter_by(name=role_name).first()
-#             if role:
-#                 user.roles.append(role)
-#             else:
-#                 db.session.rollback()
-#                 return {"message": f"Role '{role_name}' does not exist."}, 400
-
-#         db.session.commit()
-#         return {'message': 'User roles updated'}, 200
-
 class UserLogin(Resource):
     def post(self):
         parser = reqparse.RequestParser()
