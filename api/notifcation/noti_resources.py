@@ -2,11 +2,15 @@ from flask_restful import Resource, reqparse, fields, marshal_with
 from api.models import Notification, User
 from extensions import db
 
+class DateField(fields.Raw):
+    def format(self, value):
+        return value.strftime('%m-%d-%Y')
+
 notification_fields = {
     'id': fields.Integer,
     'user_id': fields.Integer,
     'message': fields.String,
-    'timestamp': fields.DateTime,
+    'timestamp': DateField(),
     'status': fields.String
 }
 

@@ -1,7 +1,11 @@
 from flask_restful import Resource, fields, marshal_with, reqparse
 from extensions import db
 from api.models import Measurement
-from  datetime import datetime
+from  datetime import date
+
+class DateField(fields.Raw):
+    def format(self, value):
+        return value.strftime('%m-%d-%Y')
 
 measurement_fields = {
     'id': fields.Integer,
@@ -9,7 +13,7 @@ measurement_fields = {
     'type': fields.String,
     'value': fields.Float,
     'unit': fields.String,
-    'timestamp': fields.DateTime,
+    'timestamp': DateField(),
 }
 
 class MeasurementResource(Resource):
@@ -27,7 +31,7 @@ class MeasurementResource(Resource):
             type=args['type'],
             value=args['value'],
             unit=args['unit'],
-            timestamp=datetime.utcnow()
+            timestamp=date.today()
         )
         db.session.add(new_measurement)
         db.session.commit()

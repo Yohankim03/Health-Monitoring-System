@@ -1,5 +1,5 @@
 from extensions import db
-from datetime import datetime, date
+from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Measurement(db.Model):
@@ -9,7 +9,7 @@ class Measurement(db.Model):
     type = db.Column(db.String, nullable=False)
     value = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False)
+    timestamp = db.Column(db.Date, nullable=False)
 
     def __repr__(self):
         return f'<Measurement {self.type}>'
@@ -26,7 +26,7 @@ class DeviceAssignment(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     device_id = db.Column(db.Integer, db.ForeignKey('device.id'), nullable=False)
     # assignment_details = db.Column(db.String(200))
-    assigned_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    assigned_on = db.Column(db.Date, nullable=False, default=date.today)
 
 class Report(db.Model):
     __tablename__ = 'report'
@@ -44,7 +44,7 @@ class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     message = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    timestamp = db.Column(db.Date, nullable=False, default=date.today)
     status = db.Column(db.String(50), nullable=False, default='unread')
     
     def __repr__(self):

@@ -62,7 +62,7 @@ while True:
                         device_name = input("Enter device name: ")
                         
                         try:
-                            print(post(url+"devices", json={"name": device_name}))
+                            print(post(url+"devices", json={"name": device_name}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to add device: {device_name}", e)
                             
@@ -71,7 +71,7 @@ while True:
                         device_id = input("Enter device id to asssign user to: ")
                         
                         try:
-                            print(post(url+"devices/assign", json={"patient_id": patient_id, "device_id": device_id}))
+                            print(post(url+"devices/assign", json={"patient_id": patient_id, "device_id": device_id}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to add device {device_id} to user {patient_id}.", e)
                 
@@ -80,7 +80,7 @@ while True:
                         status = input("Enter new device status: ")
                         
                         try:
-                            print(put(url+"/devices/"+device_id+"/status", json={"status":status}))
+                            print(put(url+"/devices/"+device_id+"/status", json={"status":status}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to change device {device_id} status.", e)
                         
@@ -99,7 +99,7 @@ while True:
                         patient_id = input("Enter report's patient id: ")
                         
                         try:
-                            print(post(url+"reports", json={"generated_by": generated_by, "patient_id": patient_id}))
+                            print(post(url+"reports", json={"generated_by": generated_by, "patient_id": patient_id}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to create report for patient {patient_id}.", e)
                             
@@ -126,7 +126,7 @@ while True:
                         message = input("Enter message: ")
                         
                         try:
-                            print(post(url+"notification", json={"user_id": userid, "message": message}))
+                            print(post(url+"notification", json={"user_id": userid, "message": message}).json())
                         except Exception as e:
                             print(f"ERROR: Failed send {userid} notification:", e)
                             

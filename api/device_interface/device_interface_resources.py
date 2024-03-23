@@ -3,6 +3,10 @@ from extensions import db
 from api.models import Measurement, Device, DeviceAssignment
 import datetime
 
+class DateField(fields.Raw):
+    def format(self, value):
+        return value.strftime('%m-%d-%Y')
+
 device_fields = {
     'id': fields.Integer,
     'name': fields.String,
@@ -14,7 +18,7 @@ device_assignment_fields = {
     'patient_id': fields.Integer,
     'device_id': fields.Integer,
     'status': fields.String,
-    'assigned_on': fields.DateTime(dt_format='rfc822')
+    'assigned_on': DateField()
 }
 
 class AddDevice(Resource):

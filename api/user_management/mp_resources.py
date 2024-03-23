@@ -1,7 +1,7 @@
 from flask_restful import Resource, fields, marshal_with, reqparse
 from extensions import db
 from api.models import Measurement, DeviceAssignment
-import datetime
+from datetime import date
 
 patient_fields = {
     'id': fields.Integer,
@@ -55,7 +55,7 @@ class InputPatientData(Resource):
             type=args['type'],
             value=args['value'],
             unit=args['unit'],
-            timestamp=datetime.utcnow()
+            timestamp=date.today
         )
         db.session.add(measurement)
         db.session.commit()

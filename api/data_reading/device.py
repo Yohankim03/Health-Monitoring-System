@@ -1,7 +1,11 @@
 from flask_restful import Resource, fields, marshal_with, reqparse, abort
 from extensions import db
 from api.models import Measurement, Device, DeviceAssignment
-import datetime
+from datetime import date
+
+class DateField(fields.Raw):
+    def format(self, value):
+        return value.strftime('%m-%d-%Y')
 
 device_fields = {
     'id': fields.Integer,
@@ -14,7 +18,7 @@ assignment_fields = {
     'patient_id': fields.Integer,
     'device_id': fields.Integer,
     'assignment_details': fields.String,
-    'assigned_on': fields.DateTime,
+    'assigned_on': DateField(),
 }
 
 measurement_fields = {
@@ -23,7 +27,7 @@ measurement_fields = {
     'type': fields.String,
     'value': fields.Float,
     'unit': fields.String,
-    'timestamp': fields.DateTime,
+    'timestamp': DateField(),
 }
 
 measurement_parser = reqparse.RequestParser()
@@ -132,7 +136,7 @@ class MeasurementListAPI(Resource):
             type=args['type'],
             value=args['value'],
             unit=args['unit'],
-            timestamp=datetime.utcnow()
+            timestamp=date.today
         )
         db.session.add(new_measurement)
         db.session.commit()

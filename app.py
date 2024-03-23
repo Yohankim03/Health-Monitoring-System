@@ -72,13 +72,6 @@ def insert_test_data():
         mp_user.roles.append(medical_professional_role)
         db.session.add(mp_user)
 
-        # # Assuming you want to link Patient and MedicalProfessional records to a User
-        # new_patient = Patient(user=patient_user)
-        # db.session.add(new_patient)
-
-        # new_med_pro = MedicalProfessional(user=mp_user, specialization='Cardiology')
-        # db.session.add(new_med_pro)
-
         db.session.commit()
 
 # Run the application
@@ -87,5 +80,5 @@ if __name__ == '__main__':
         create_roles()
         add_devices()
         insert_test_data()
-        unittest.main()
+        # unittest.main()
     app.run(debug=True)
