@@ -98,7 +98,7 @@ while True:
                         patient_id = input("Enter report's patient id: ")
                         
                         try:
-                            print(post(url+"reports", json={"generated_by": generated_by, "patient_id": patient_id}).json())
+                            print(post(url+"reports", json={"generated_by": generated_by, "patient_id": patient_id}))
                         except Exception as e:
                             print(f"ERROR: Failed to create report for patient {patient_id}.", e)
                             
