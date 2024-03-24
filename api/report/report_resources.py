@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from api.models import Report, Measurement, DeviceAssignment, Device
-from extensions import db, task_queue
-from tasks import generate_report
+from extensions import db
 
 class DateField(fields.Raw):
     def format(self, value):

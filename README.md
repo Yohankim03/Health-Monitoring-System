@@ -42,3 +42,34 @@ Or using Docker:
 docker build -t health-monitoring-system .
 docker run -d -p 5000:5000 health-monitoring-system
 ```
+
+## Endpoints
+
+### Authentication
+
+#### User Registration
+
+- **POST** `/registration`
+
+Register a new user.
+
+```json
+{
+  "username": "john_doe",
+  "password": "your_password",
+  "email": "john_doe@example.com"
+}
+
+#### User Login
+
+- **POST** `/login`
+
+Login into a user
+
+```json
+{
+  "username": "john_doe",
+  "password": "your_password"
+}
+
+### Notification

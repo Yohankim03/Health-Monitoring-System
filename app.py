@@ -79,4 +79,4 @@ if __name__ == '__main__':
         add_devices()
         insert_test_data()
 
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
