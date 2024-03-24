@@ -34,8 +34,10 @@ git clone https://yourrepository.com/yourproject.git
 cd yourproject
 pip install -r requirements.txt
 flask db upgrade
-flask run
+flask python ./app.py
 ```
+
+On local machine you can test the api modules with a simple client. Run "flask python ./app.py" on one terminal and ./client.py on a different terminal
 
 Or using Docker:
 ```sh
