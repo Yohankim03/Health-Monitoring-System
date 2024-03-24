@@ -59,6 +59,7 @@ Register a new user.
   "password": "your_password",
   "email": "john_doe@example.com"
 }
+```
 
 #### User Login
 
@@ -71,5 +72,73 @@ Login into a user
   "username": "john_doe",
   "password": "your_password"
 }
+```
 
 ### Notification
+- **POST/GET** `/notification`
+Create a new notification or retrieve notifications for the user.
+POST Payload:
+```json
+{
+  "user_id": 1,
+  "message": "Your appointment is coming up tomorrow."
+}
+```
+GET Response:
+```json
+{
+  "patient_id": 1,
+  "type": "blood_pressure",
+  "value": 120.5,
+  "unit": "mmHg"
+}
+```
+
+### Data Reading
+Record Measurement
+- **POST** `/measurements`
+Record a new measurement for a patient.
+```json
+{
+  "patient_id": 1,
+  "type": "blood_pressure",
+  "value": 120.5,
+  "unit": "mmHg"
+}
+```
+List Measurements for User
+- **GET** `/users/<int:user_id>/measurements`
+Retrieve all measurements recorded for a user.
+
+### Device Interface
+Add Device
+- **POST** `/devices`
+Add a new device to the system.
+```json
+{
+  "name": "Heart Rate Monitor",
+  "device_type": "monitor",
+  "description": "Monitors heart rate."
+}
+```
+
+Assign Device to Patient
+- **POST** `/devices/assign`
+```json
+{
+  "patient_id": 1,
+  "device_id": 2
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
