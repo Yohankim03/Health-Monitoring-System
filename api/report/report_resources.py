@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from api.models import Report, Measurement, DeviceAssignment, Device
-from extensions import db
+from extensions import db, task_queue
+from tasks import generate_report
 
 class DateField(fields.Raw):
     def format(self, value):
@@ -13,7 +14,6 @@ report_fields = {
     'content': fields.String,
     'timestamp': DateField(),
 }
-
 
 class CreateReport(Resource):
     @marshal_with(report_fields)
@@ -48,7 +48,6 @@ class CreateReport(Resource):
         db.session.add(new_report)
         db.session.commit()
         return new_report, 201
-
 
 class ListReports(Resource):
     @marshal_with(report_fields)

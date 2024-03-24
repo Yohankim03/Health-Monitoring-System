@@ -25,7 +25,6 @@ while True:
                             print(post(url+"registration", json={"username": username, "email": email, "password": password}).json())
                         except Exception as e:
                             print(f"ERROR: Failed to add user {username}:", e)
-                            
                     case '2':
                         pass
                     
@@ -143,8 +142,7 @@ while True:
                                 print(get(url+"notification/"+userid).json())
                             except Exception as e:
                                 print(f"ERROR: Failed to get {userid} notificaiton:", e)
-                                
-                                
+                                         
         case '6':
             while True:
                 inp_man = input("Enter number: \n\t1. GetUser(GET) \n\t2. DeleteUser(DELETE) \n\t3. Quit\n")
@@ -162,5 +160,8 @@ while True:
                             delete(url+ "users/" +userid+ "/delete")
                         except Exception as e:
                                 print(f"ERROR: Failed to delete user {userid}.", e)
+                                
+        # case '7':
+            
                         
             

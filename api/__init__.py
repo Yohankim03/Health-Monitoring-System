@@ -37,4 +37,5 @@ def create_api(app):
     api.add_resource(GetUsers, '/users')
     api.add_resource(DeleteUser, '/users/<int:id>/delete')
     
+    
     return api
