@@ -35,8 +35,10 @@ cd yourproject
 pip install -r requirements.txt
 flask db upgrade
 flask run
+```
 
 Or using Docker:
 ```sh
 docker build -t health-monitoring-system .
 docker run -d -p 5000:5000 health-monitoring-system
+```
