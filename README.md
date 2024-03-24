@@ -131,14 +131,60 @@ Assign Device to Patient
 }
 ```
 
+### Device Interface
 
+Add Device
 
+- **POST** `/devices`
 
+Add a new device to the system.
 
+```json
+{
+  "name": "Heart Rate Monitor",
+  "device_type": "monitor",
+  "description": "Monitors heart rate."
+}
+```
 
+Assign Device to Patient
 
+- **POST** `/devices/assign`
 
+Assign a device to a patient.
 
+```json
+{
+  "patient_id": 1,
+  "device_id": 2
+}
+```
 
+### Device Interface
 
+Add Device
 
+- **POST** `/reports`
+
+Generate a report for a patient.
+
+```json
+{
+  "generated_by": 1,
+  "patient_id": 1
+}
+```
+
+### User Management
+
+List Users
+
+- **Get** `/users`
+
+Retrieve a list of all users and their details.
+
+Delete User
+
+- **DELETE ** `/users/<int:id>/delete`
+
+Remove a user from the system.
