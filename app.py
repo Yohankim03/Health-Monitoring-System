@@ -7,9 +7,11 @@ from api.models import Role, User, Device
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import JWTManager
 import os
+from flask_cors import CORS
 
 # Create the Flask application
 app = Flask(__name__)
+CORS(app)
 
 # Configure the database URI and disable track modifications for performance
 basedir = os.path.abspath(os.path.dirname(__file__))
