@@ -42,7 +42,7 @@ while True:
                         unit = input("Enter measurement unit: ")
                         
                         try:
-                            print(post(url+"measurements", json={"user_id": userid, "type":type, "value": value, "unit": unit}))
+                            print(post(url+"addmeasurements", json={"user_id": userid, "type":type, "value": value, "unit": unit}))
                         except Exception as e:
                             print(f"ERROR: Failed to add measurment for {userid}:", e)
                             
@@ -160,6 +160,10 @@ while True:
                             delete(url+ "users/" +userid+ "/delete")
                         except Exception as e:
                                 print(f"ERROR: Failed to delete user {userid}.", e)
+                    # case '3':
+                    #     userid = input("Enter the id you want to change role for: ")
+                    #     try:
+                    #         put(url+ "admin/" +userid+ "/change_role", json={})
                                 
         # case '7':
             

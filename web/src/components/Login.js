@@ -11,6 +11,11 @@ function Login() {
         setCredentials({...credentials, [e.target.name]: e.target.value});
     };
 
+    const handleBack = (e) => {
+        navigate('/');
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -41,6 +46,7 @@ function Login() {
                 </label>
                 <button type="submit">Login</button>
             </form>
+            <button onClick={handleBack}>Back Home</button>
         </div>
     );
 }

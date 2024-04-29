@@ -27,6 +27,7 @@ class AdminAddUser(Resource):
             username=args['username'],
             email=args['email'],
         )
+        
         new_user.set_password(args['password'])
         db.session.add(new_user)
         db.session.flush()  # This will assign an ID to new_user without committing the transaction
@@ -43,25 +44,26 @@ class AdminAddUser(Resource):
                     return {"message": f"Role '{role_name}' does not exist."}, 400
 
         db.session.commit()
-        return new_user
+        return new_user, 200
 
 class AdminManageUserRoles(Resource):
     @marshal_with(user_fields)
     def put(self, user_id):
         parser = reqparse.RequestParser()
-        parser.add_argument('roles', type=str, action='append', required=True)
+        parser.add_argument('roles', type=str, action='append', required=True, help="This field cannot be blank and must be a list of roles.")
         args = parser.parse_args()
 
         user = User.query.get_or_404(user_id)
-        user.roles = []  # Clear existing roles
 
+        # Reset roles only if new roles are provided and valid
+        new_roles = []
         for role_name in args['roles']:
             role = Role.query.filter_by(name=role_name).first()
-            if role:
-                user.roles.append(role)
-            else:
-                db.session.rollback()
+            if not role:
+                db.session.rollback()  # Roll back any changes if there's an error
                 return {"message": f"Role '{role_name}' does not exist."}, 400
-        
+            new_roles.append(role)
+
+        user.roles = new_roles  # Assign new roles once all are verified
         db.session.commit()
-        return user
+        return user, 200
