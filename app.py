@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash
 from flask_jwt_extended import JWTManager
 import os
 from flask_cors import CORS
+from datetime import datetime
 
 # Create the Flask application
 app = Flask(__name__)
@@ -46,7 +47,6 @@ def add_devices():
     db.session.commit()
     
 def insert_test_data():
-
     # Fetch roles
     admin_role = Role.query.filter_by(name='Admin').first()
     patient_role = Role.query.filter_by(name='Patient').first()
@@ -55,20 +55,27 @@ def insert_test_data():
     # Check if we already have users to avoid duplicating test data
     if not User.query.first():
         # Create and add admin user
+        date_object = datetime.strptime('1993-02-05', '%Y-%m-%d')
         admin_user = User(username='admin', email='admin@example.com',
-                            password_hash=generate_password_hash('admin123'))
+                            password_hash=generate_password_hash('admin123'),
+                            first_name='admin', last_name='admin', dob=date_object,
+                            gender='admin', phone_number='408-000-0000')
         admin_user.roles.append(admin_role)
         db.session.add(admin_user)
 
         # Create and add patient user
         patient_user = User(username='patient', email='patient@example.com',
-                            password_hash=generate_password_hash('patient123'))
+                            password_hash=generate_password_hash('patient123'),
+                            first_name='patient', last_name='patient', dob=date_object,
+                            gender='patient', phone_number='408-000-0000')
         patient_user.roles.append(patient_role)
         db.session.add(patient_user)
 
         # Create and add medical professional user
         mp_user = User(username='medpro', email='medpro@example.com',
-                        password_hash=generate_password_hash('medpro123'))
+                        password_hash=generate_password_hash('medpro123'),
+                        first_name='medpro', last_name='medpro', dob=date_object,
+                        gender='medpro', phone_number='408-000-0000')
         mp_user.roles.append(medical_professional_role)
         db.session.add(mp_user)
 

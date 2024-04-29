@@ -71,6 +71,11 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password_hash = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    dob = db.Column(db.Date, nullable=False)  # Date of Birth as a Date
+    gender = db.Column(db.String(20), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=True)  # Phone number can be optional
     
     # Relationships
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
@@ -79,7 +84,7 @@ class User(db.Model):
         self.password_hash = generate_password_hash(password)
         
     def check_password(self, password):
-        return check_password_hash(self.hashed_password, password)
+        return check_password_hash(self.password_hash, password)
     
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
