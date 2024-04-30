@@ -35,7 +35,7 @@ def create_api(app):
     api.add_resource(GetReport, '/reports/<int:report_id>')
 
     # User Management
-    api.add_resource(GetUsers, '/users')
+    api.add_resource(GetUsers, '/users/<string:username>/view_users')
     api.add_resource(DeleteUser, '/users/<int:id>/delete')
     api.add_resource(AdminManageUserRoles, '/admin/<int:user_id>/change_role')
     

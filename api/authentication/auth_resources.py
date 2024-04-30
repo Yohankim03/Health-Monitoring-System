@@ -9,7 +9,9 @@ from flask import jsonify
 user_profile_fields = {
     'id': fields.Integer,
     'username': fields.String,
-    'email': fields.String
+    'email': fields.String,
+    'first_name': fields.String,
+    'last_name': fields.String
 }
 
 class UserRegistration(Resource):
