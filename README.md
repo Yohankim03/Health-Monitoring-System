@@ -21,6 +21,7 @@ The Health Monitoring System is a web application designed to facilitate the man
 2. Navigate to the project directory: `cd health-monitoring-system`
 3. Navigate to the web folder: `cd web`
 3. Install dependencies: `npm install`
+
 **Using Docker**
 ```sh
 docker build -t health-monitoring-system .
