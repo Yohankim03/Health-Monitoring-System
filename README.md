@@ -44,4 +44,4 @@ The Health Monitoring System is a web application designed to facilitate the man
 
 ## Example of application
 - Patient:
-![Demo GIF](./assets/patient.gif)
+![Demo GIF](./assets/patient.gif){: width="400" height="300"}
