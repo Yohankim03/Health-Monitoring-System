@@ -49,3 +49,6 @@ The Health Monitoring System is a web application designed to facilitate the man
 ![Demo GIF](./assets/medpro.gif)
 - Admin:
 ![Demo GIF](./assets/admin.gif)
+
+
+For more info the Flask API refer to the wiki page [wiki](https://github.com/Yohankim03/Health-Monitoring-System/wiki)
