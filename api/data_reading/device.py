@@ -58,22 +58,11 @@ class AddDevice(Resource):
     def get(self):
         devices = Device.query.all()
         return devices
-# {
-#   "name": "Blood Pressure Monitor",
-#   "status": "active"
-# }
-
+    
 class AssignDeviceToPatient(Resource):
     @marshal_with(assignment_fields)
     def post(self):
         args = device_parser.parse_args()
-
-        # Check if the patient exists
-        
-        # ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-        # patient = Patient.query.get(args['patientId'])
-        # if not patient:
-        #     abort(404, message="Patient not found")
 
         # Check if the device exists
         device = Device.query.get(args['deviceId'])
@@ -89,12 +78,7 @@ class AssignDeviceToPatient(Resource):
         db.session.add(new_assignment)
         db.session.commit()
         return new_assignment, 201
-# {
-#   "patientId": 4,
-#   "deviceId": 1,
-#   "assignmentDetails": "Assigned for blood pressure monitoring"
-# }
-    
+
 class GetDeviceStatus(Resource):
     @marshal_with(device_fields)
     def get(self, deviceId):

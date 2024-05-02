@@ -32,9 +32,19 @@
     flex-direction: column;
     align-items: start;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: #f7f7f7;
     box-sizing: border-box;
+    border: 2px solid #4A90E2;
+}
+
+
+.dashboard-container .conditional-area {
+    padding: 5px; 
+    border: 2px solid #4A90E2;
+    border-radius: 8px;
+    margin-top: 10px;
+    background: #fafafa;
 }
 
 .dashboard-container button {
@@ -69,10 +79,8 @@
     color: #333;
 }
 
-/* Conditional rendering areas styled subtly different */
-/* Conditional rendering areas styled with more padding for increased space inside the border */
 .dashboard-container .conditional-area {
-    padding: 5px; /* Increased from 15px to 30px */
+    padding: 5px; 
     border: 2px solid #4A90E2;
     border-radius: 8px;
     margin-top: 10px;

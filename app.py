@@ -42,7 +42,7 @@ def create_roles():
     db.session.commit()
     
 def add_devices():
-    devices = ["Heart Rate Monitor", "Blood Pressure Monitor", ""]  # Add all roles you need
+    devices = ["Heart Rate Monitor", "Blood Pressure Monitor", "Thermometer"]  # Add all roles you need
     for device in devices:
         if not Device.query.filter_by(name=device).first():
             new_device = Device(name=device, status="active")

@@ -27,7 +27,7 @@ def create_api(app):
     # Device Interface
     api.add_resource(AddDevice, '/devices')
     api.add_resource(AssignDevice, '/devices/assign')
-    api.add_resource(UpdateDeviceStatus, '/devices/<int:device_id>/status')
+    api.add_resource(UpdateDeviceStatus, '/devices/<string:name>/status')
     api.add_resource(ListDevices, '/devices')
 
     # Reports

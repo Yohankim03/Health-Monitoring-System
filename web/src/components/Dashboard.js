@@ -5,6 +5,7 @@ import ViewMeasurements from './ViewMeasurement';
 import ViewUsers from './ViewUsers';
 import AssignDevice from './AssignDevice';
 import ManageUserRoles from './AssignRole'
+import UpdateDevice from './UpdateDevice'
 import './Dashboard.css';
 
 function Dashboard() {
@@ -47,7 +48,7 @@ function Dashboard() {
                     <EnterMeasurement />
                 </div>
             )}
-            {hasPatientRole && (
+            {(hasPatientRole || hasMedicalProRole) && (
                 <div className="conditional-area">
                     <ViewMeasurements />
                 </div>
@@ -65,6 +66,11 @@ function Dashboard() {
             {hasAdminRole && (
                 <div className="conditional-area">
                     <ManageUserRoles />
+                </div>
+            )}
+            {hasAdminRole && (
+                <div className="conditional-area">
+                    <UpdateDevice />
                 </div>
             )}
             

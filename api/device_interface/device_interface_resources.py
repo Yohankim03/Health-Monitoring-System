@@ -1,7 +1,7 @@
 from flask_restful import Resource, fields, marshal_with, reqparse, abort
 from extensions import db
 from api.models import Measurement, Device, DeviceAssignment
-import datetime
+from sqlalchemy.orm.exc import NoResultFound
 
 class DateField(fields.Raw):
     def format(self, value):
@@ -55,16 +55,20 @@ class AssignDevice(Resource):
 
 
 class UpdateDeviceStatus(Resource):
-    @marshal_with(device_fields)
-    def put(self, device_id):
+    @marshal_with(device_fields)  # Ensure you have defined device_fields appropriately
+    def put(self, name):
         parser = reqparse.RequestParser()
         parser.add_argument('status', required=True, help="New status is required")
         args = parser.parse_args()
 
-        device = Device.query.get_or_404(device_id)
-        device.status = args['status']
-        db.session.commit()
-        return device
+        try:
+            # Use filter_by to find the device by name. You might want to handle case sensitivity.
+            device = Device.query.filter_by(name=name).one()
+            device.status = args['status']
+            db.session.commit()
+            return device
+        except NoResultFound:
+            return {'message': 'Device not found'}, 404
 
 class ListDevices(Resource):
     @marshal_with(device_fields)

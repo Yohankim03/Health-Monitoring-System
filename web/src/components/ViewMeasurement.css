@@ -13,6 +13,23 @@
     margin-bottom: 20px;
 }
 
+.measurements-container select {
+    width: 85%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+}
+
+.measurements-container label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+}
+
 .measurements-container button {
     padding: 10px 15px;
     background-color: #4A90E2;
@@ -52,4 +69,10 @@
 
 .measurements-container p {
     color: #606060;
+    margin-bottom: 20px;
+}
+
+/* Specific styling for error messages for better visibility */
+.measurements-container p.error-message {
+    color: #D9534F; /* Bootstrap standard danger color for errors */
 }
