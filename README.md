@@ -16,10 +16,16 @@ The Health Monitoring System is a web application designed to facilitate the man
   - Ability to disable or enable any device maker or application developer
 
 ## Installation
+**On Local Machine**
 1. Clone the repository: `git clone <repository_url>`
 2. Navigate to the project directory: `cd health-monitoring-system`
 3. Navigate to the web folder: `cd web`
 3. Install dependencies: `npm install`
+**Using Docker**
+```sh
+docker build -t health-monitoring-system .
+docker run -p 3000:3000 -p 5000:5000 health-monitoring-system
+```
 
 ## Usage
 1. Start the development server in health-monitoring-system/web: `npm run dev`
