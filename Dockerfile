@@ -1,42 +1,29 @@
-# # Use an official Python runtime as the parent image
-# FROM python:3.8-slim
+FROM node:14-buster
 
-# # Set the working directory in the container
-# WORKDIR /usr/src/app
-
-# # Copy the current directory contents into the container at /usr/src/app
-# COPY . .
-
-# # Install any needed packages specified in requirements.txt
-# RUN pip install --no-cache-dir -r requirements.txt
-
-# # Make port 5000 available to the world outside this container
-# EXPOSE 5000
-
-# # Define environment variable for Flask to run in production mode
-# ENV FLASK_ENV=production
-
-# # Run app.py using Python when the container launches
-# CMD ["python", "app.py"]
-
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
-
-# Set the working directory in the container
+# Set the working directory in the Docker container
 WORKDIR /usr/src/app
 
-# Copy the current directory contents into the container at /usr/src/app
+# Copy the package.json and package-lock.json (or yarn.lock) files for the React app
+COPY web/package*.json ./web/
+
+# Install dependencies for the React app
+RUN cd web && npm install
+
+# Copy the React application files into the container
+COPY web/ ./web/
+
+# Python is already installed in the Buster images, install pip
+RUN apt-get update && apt-get install -y python3-pip
+
+# Copy the Flask application files and requirements into the container
+COPY requirements.txt .
 COPY . .
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip3 install -r requirements.txt
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Expose the ports that your Flask and React apps run on
+EXPOSE 3000 5000
 
-# Define environment variable for Flask to run in development mode
-ENV FLASK_ENV=development
-ENV FLASK_APP=app.py
-
-# Run app.py using Python when the container launches
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Run the development servers using the 'dev' script in package.json
+CMD ["npm", "run", "dev", "--prefix", "web"]
