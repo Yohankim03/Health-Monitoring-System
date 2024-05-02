@@ -1,29 +1,25 @@
-FROM node:14-buster
+# Use a base image with both Python and Node.js
+FROM nikolaik/python-nodejs:python3.10-nodejs16
 
-# Set the working directory in the Docker container
+# Set the working directory to the project root
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json (or yarn.lock) files for the React app
-COPY web/package*.json ./web/
-
-# Install dependencies for the React app
-RUN cd web && npm install
-
-# Copy the React application files into the container
-COPY web/ ./web/
-
-# Python is already installed in the Buster images, install pip
-RUN apt-get update && apt-get install -y python3-pip
-
-# Copy the Flask application files and requirements into the container
+# Copy the Flask application files
+COPY app.py .
 COPY requirements.txt .
-COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies
-RUN pip3 install -r requirements.txt
+# Set up the React application
+WORKDIR /usr/src/app/web
+COPY web/package*.json ./
+RUN npm install
+COPY web/ .
 
-# Expose the ports that your Flask and React apps run on
+# Expose the ports (React typically runs on 3000, Flask on 5000)
 EXPOSE 3000 5000
 
-# Run the development servers using the 'dev' script in package.json
-CMD ["npm", "run", "dev", "--prefix", "web"]
+# Set the working directory to the web directory to run npm scripts
+WORKDIR /usr/src/app/web
+
+# Command to start the application
+CMD ["npm", "run", "dev"]
