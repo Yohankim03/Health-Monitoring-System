@@ -1,0 +1,50 @@
+.roles-management-container {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    color: #606060;
+}
+
+.roles-management-container h2, .roles-management-container h3 {
+    color: #4A90E2;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.roles-management-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.roles-management-container label {
+    display: block;
+    font-size: 16px;
+    color: #606060;
+    margin-bottom: 10px; /* Space between the checkbox items */
+}
+
+.roles-management-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.roles-management-container button {
+    background-color: #4A90E2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    margin-top: 20px; /* Space after the checkboxes before the button */
+}
+
+.roles-management-container button:hover {
+    background-color: #357ABD;
+}

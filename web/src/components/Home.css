@@ -1,0 +1,46 @@
+.home-container {
+    margin: 200px auto; /* Centers the box horizontally and adds vertical spacing */
+    padding: 40px; /* Padding inside the box */
+    text-align: center; /* Centers the text inside the container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Sets the background color to white */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds a subtle shadow around the box */
+    border-radius: 8px; /* Rounds the corners of the box */
+    width: 80%; /* Sets the width of the container to 80% of its parent's width */
+    max-width: 600px; /* Maximum width to ensure the box doesn't get too large on wider screens */
+}
+
+
+
+.home-container h1 {
+    color: #4A90E2; 
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+
+.home-container p {
+    color: #606060; /* Dark grey for text */
+    font-size: 18px;
+}
+
+
+.home-container a {
+    width: 15%;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 7.5px;
+    border: none;
+    background-color: #4A90E2;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.home-container a:hover {
+    background-color: #4A90E2;
+    color: white;
+}

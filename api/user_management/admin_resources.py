@@ -48,12 +48,12 @@ class AdminAddUser(Resource):
 
 class AdminManageUserRoles(Resource):
     @marshal_with(user_fields)
-    def put(self, user_id):
+    def put(self, username):
         parser = reqparse.RequestParser()
         parser.add_argument('roles', type=str, action='append', required=True, help="This field cannot be blank and must be a list of roles.")
         args = parser.parse_args()
 
-        user = User.query.get_or_404(user_id)
+        user = User.query.filter_by(username=username).first()
 
         # Reset roles only if new roles are provided and valid
         new_roles = []

@@ -1,0 +1,86 @@
+
+.signup-container {
+    background-color: #fff;
+    width: 200%;
+    max-width: 360px;
+    margin: 20px auto;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-container h1 {
+    color: #4A90E2;
+    margin-bottom: 20px;
+}
+
+.signup-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensures that all form elements stretch to full width */
+}
+
+.signup-container label {
+    color: #606060;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.signup-container input[type="text"],
+.signup-container input[type="password"],
+.signup-container input[type="email"],
+.signup-container input[type="date"],
+.signup-container select {
+    width: 100%;
+    padding: 10px; /* Uniform padding for all input types */
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.signup-container button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.signup-container button:hover {
+    background-color: #357ABD;
+}
+
+.center-wrapper {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Take up at least the full viewport height */
+    width: 100vw; /* Take up at least the full viewport width */
+    position: absolute; /* Positioning context */
+    top: 0; /* Align top edge at the top of the viewport */
+    left: 0; /* Align left edge at the side of the viewport */
+}
+
+.signup-container {
+    background-color: #fff;
+    width: 90%; /* Adjust width as necessary, but not exceeding 100% */
+    max-width: 360px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

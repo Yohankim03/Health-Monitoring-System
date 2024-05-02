@@ -1,0 +1,63 @@
+body {
+    background-color: #f4f4f4; /* Replace with your desired color */
+}
+
+.login-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 360px;
+    margin: 200px auto;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container h1 {
+    color: #4A90E2;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    color: #606060;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: calc(100%); /* Adjust width taking padding into account */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #357ABD;
+}
+
+.login-container button[type="submit"] {
+    margin-bottom: 15px; /* Spacing between buttons */
+}

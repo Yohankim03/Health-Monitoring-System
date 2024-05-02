@@ -1,0 +1,30 @@
+.users-list-container {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    color: #606060;
+}
+
+.users-list-container h2 {
+    color: #4A90E2;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.users-list-container ul {
+    list-style: none; /* Removes default list styling */
+    padding: 0;
+}
+
+.users-list-container li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Adds a light separator between items */
+    margin-bottom: 5px; /* Adds space between list items */
+}
+
+.users-list-container li:last-child {
+    border-bottom: none; /* Removes the border from the last item */
+    margin-bottom: 0; /* Removes the bottom margin from the last item */
+}

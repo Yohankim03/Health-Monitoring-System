@@ -23,6 +23,9 @@ app.config['JWT_SECRET_KEY'] = 'secret_key'  # Change this to a random secret ke
 # Initialize the database with the app
 db.init_app(app)
 
+from api.models import Message  # Ensure this is after db is defined
+
+
 # Set up Flask-Migrate
 migrate = Migrate(app, db)
 

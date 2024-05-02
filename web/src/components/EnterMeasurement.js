@@ -1,84 +1,7 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// function EnterMeasurement() {
-//     const [measurement, setMeasurement] = useState({
-//         type: '',
-//         value: '',
-//         unit: ''
-//     });
-
-//     const handleChange = (e) => {
-//         setMeasurement({
-//             ...measurement,
-//             [e.target.name]: e.target.value
-//         });
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-//             const response = await axios.post(`http://localhost:5000/users/${userDetails.username}/addmeasurements`, measurement, {
-//                 headers: {
-//                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-//                 }
-//             });
-//             console.log('Measurement Added:', response.data);
-//             alert('Measurement added successfully!');
-//             // Reset form
-//             setMeasurement({ type: '', value: '', unit: '' });
-//         } catch (error) {
-//             console.error('Error adding measurement:', error);
-//             alert('Failed to add measurement.');
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <h2>Enter Medical Measurement</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <div>
-//                     <label>Measurement Type:</label>
-//                     <input
-//                         type="text"
-//                         name="type"
-//                         value={measurement.type}
-//                         onChange={handleChange}
-//                         required
-//                     />
-//                 </div>
-//                 <div>
-//                     <label>Value:</label>
-//                     <input
-//                         type="number"
-//                         name="value"
-//                         value={measurement.value}
-//                         onChange={handleChange}
-//                         required
-//                     />
-//                 </div>
-//                 <div>
-//                     <label>Units:</label>
-//                     <input
-//                         type="text"
-//                         name="unit"
-//                         value={measurement.unit}
-//                         onChange={handleChange}
-//                         required
-//                     />
-//                 </div>
-//                 <button type="submit">Submit Measurement</button>
-//             </form>
-//         </div>
-//     );
-// }
-
-// export default EnterMeasurement;
-
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import './EnterMeasurement.css'
 
 function EnterMeasurement() {
     const [measurement, setMeasurement] = useState({
@@ -171,13 +94,14 @@ function EnterMeasurement() {
     
 
     return (
-        <div>
+        <div className="medical-measurement-container">
             <h2>Enter Medical Measurement</h2>
             <form onSubmit={handleSubmit}>
                 {isMedicalProfessional && (
                     <div>
-                        <label>Patient:</label>
+                        <label htmlFor="patientId">Patient:</label>
                         <select
+                            id="patientId"
                             name="patientId"
                             value={measurement.patientId}
                             onChange={handleChange}
@@ -193,8 +117,9 @@ function EnterMeasurement() {
                     </div>
                 )}
                 <div>
-                    <label>Measurement Type:</label>
+                    <label htmlFor="measurementType">Measurement Type:</label>
                     <input
+                        id="measurementType"
                         type="text"
                         name="type"
                         value={measurement.type}
@@ -203,8 +128,9 @@ function EnterMeasurement() {
                     />
                 </div>
                 <div>
-                    <label>Value:</label>
+                    <label htmlFor="measurementValue">Value:</label>
                     <input
+                        id="measurementValue"
                         type="number"
                         name="value"
                         value={measurement.value}
@@ -213,8 +139,9 @@ function EnterMeasurement() {
                     />
                 </div>
                 <div>
-                    <label>Units:</label>
+                    <label htmlFor="measurementUnit">Units:</label>
                     <input
+                        id="measurementUnit"
                         type="text"
                         name="unit"
                         value={measurement.unit}
@@ -226,6 +153,7 @@ function EnterMeasurement() {
             </form>
         </div>
     );
+    
 }
 
 export default EnterMeasurement;

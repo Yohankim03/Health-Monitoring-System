@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ViewMeasurement.css'
 
 function ViewMeasurements() {
     const [measurements, setMeasurements] = useState([]);
@@ -25,7 +26,7 @@ function ViewMeasurements() {
     };
 
     return (
-        <div>
+        <div className="measurements-container">
             <h2>View Your Medical Measurements</h2>
             <button onClick={fetchMeasurements} disabled={loading}>
                 {loading ? 'Loading...' : 'Show Measurements'}

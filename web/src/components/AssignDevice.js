@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './AssignDevice.css'
 
 function AssignDeviceToPatient() {
     const [devices, setDevices] = useState([]);
@@ -52,7 +53,7 @@ function AssignDeviceToPatient() {
     };
 
     return (
-        <div>
+        <div className="device-assignment-container">
             <h2>Assign Device to Patient</h2>
             <div>
                 <label>

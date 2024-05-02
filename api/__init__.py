@@ -5,8 +5,9 @@ from .notifcation.noti_resources import NotificationResource
 from .data_reading.data_reading_resources import AddMeasurement, ViewMeasurement
 from .device_interface.device_interface_resources import AddDevice, AssignDevice, UpdateDeviceStatus, ListDevices
 from .report.report_resources import CreateReport, ListReports, GetReport
-from .user_management.user_man_resources import DeleteUser, GetUsers
+from .user_management.user_man_resources import DeleteUser, GetUsers, GetRoles
 from .user_management.admin_resources import AdminManageUserRoles
+from .user_management.message_resource import SendMessage, RetrieveMessages
 
 # Define the create_api function
 def create_api(app):
@@ -29,7 +30,7 @@ def create_api(app):
     api.add_resource(UpdateDeviceStatus, '/devices/<int:device_id>/status')
     api.add_resource(ListDevices, '/devices')
 
-    #Reports
+    # Reports
     api.add_resource(CreateReport, '/reports')
     api.add_resource(ListReports, '/reports')
     api.add_resource(GetReport, '/reports/<int:report_id>')
@@ -37,8 +38,11 @@ def create_api(app):
     # User Management
     api.add_resource(GetUsers, '/users/<string:username>/view_users')
     api.add_resource(DeleteUser, '/users/<int:id>/delete')
-    api.add_resource(AdminManageUserRoles, '/admin/<int:user_id>/change_role')
+    api.add_resource(AdminManageUserRoles, '/admin/<string:username>/change_role')
+    api.add_resource(GetRoles, '/admin/roles')
     
-    
+    # Messages
+    api.add_resource(SendMessage, '/messages/send')
+    api.add_resource(RetrieveMessages, '/messages/<int:user_id>')
     
     return api

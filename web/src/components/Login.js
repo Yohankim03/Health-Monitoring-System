@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -33,7 +34,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className ='login-container'>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <label>

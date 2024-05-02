@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ViewUsers.css'
 
 function ViewUsers() {
     const [users, setUsers] = useState([]);
@@ -27,18 +28,15 @@ function ViewUsers() {
     }, []);
 
     return (
-        <div>
+        <div className="users-list-container">
             <h2>Users List</h2>
-            <div>
-
-                <ul>
-                    {users.map(user => (
-                        <li key={user.id}>
-                            Username: {user.username}, Name: {user.first_name} {user.last_name}, Email: {user.email}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <ul>
+                {users.map(user => (
+                    <li key={user.id}>
+                        Username: {user.username}, Name: {user.first_name} {user.last_name}, Email: {user.email}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

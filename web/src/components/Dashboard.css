@@ -1,0 +1,81 @@
+.dashboard-container {
+    background-color: #fff;
+    width: 90%;
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-container > div {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dashboard-container h1 {
+    color: #4A90E2;
+    margin-bottom: 20px;
+}
+
+.dashboard-container p,
+.dashboard-container div {
+    color: #606060;
+    font-size: 16px;
+}
+
+.dashboard-container .user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    border-radius: 4px;
+    background: #f7f7f7;
+    box-sizing: border-box;
+}
+
+.dashboard-container button {
+    width: 200px;
+    padding: 12px;
+    border: none;
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+}
+
+.dashboard-container button:hover {
+    background-color: #357ABD;
+}
+
+/* Specific styles for interactive elements like lists of roles */
+.dashboard-container .role-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.role-item {
+    padding: 5px 10px;
+    background: #E1ECF4;
+    border-radius: 4px;
+    color: #333;
+}
+
+/* Conditional rendering areas styled subtly different */
+/* Conditional rendering areas styled with more padding for increased space inside the border */
+.dashboard-container .conditional-area {
+    padding: 5px; /* Increased from 15px to 30px */
+    border: 2px solid #4A90E2;
+    border-radius: 8px;
+    margin-top: 10px;
+    background: #fafafa;
+}
+

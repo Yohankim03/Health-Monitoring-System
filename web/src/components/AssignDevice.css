@@ -1,0 +1,51 @@
+.device-assignment-container {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    color: #606060;
+}
+
+.device-assignment-container h2 {
+    color: #4A90E2;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.device-assignment-container label {
+    display: block; /* Makes the label take the full width, helping align the select box underneath */
+    font-size: 16px;
+    color: #606060;
+    margin-bottom: 10px; /* Space between the label and the select box */
+}
+
+.device-assignment-container select {
+    width: 100%; /* Ensures the select box fills the container width */
+    padding: 8px;
+    margin-bottom: 20px; /* Space below each select box */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding does not affect the overall defined width */
+}
+
+.device-assignment-container button {
+    background-color: #4A90E2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    display: block; /* Makes the button take the full width available */
+}
+
+.device-assignment-container button:hover {
+    background-color: #357ABD;
+}
+
+.device-assignment-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
